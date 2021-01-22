@@ -15,11 +15,11 @@ import { AuthModule } from "./auth/auth.module";
   imports: [
     TypeOrmModule.forRoot({
       type: "postgres",
-      host: "localhost",
-      port: 5432, // postgres 앱에서 서버확인가능
-      username: "stevesung",
-      password: "12345", // 로컬호스트에서는 안써도된다
-      database: "nuber-eats-challenge",
+      host: process.env.NODE_ENV === "test" ? "localhost" : process.env.DB_HOST,
+      port: 5432,
+      username: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DB_NAME,
       synchronize: true,
       logging: process.env.NODE_ENV !== "test",
       entities: [Podcast, Episode, User, Review],

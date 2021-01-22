@@ -33,15 +33,46 @@ heroku git:remote -a heroku에만든app이름 // 브랜치 remote로 heroku git 
 ```
 $ git add . && git commit -am "make it better"
 // 변경 사항 있으면 커밋 필요
-$ git push heroku master
+$ git push heroku main
+// 배포
 ```
 
 - prebuild -> build -> start 순서대로 해준다
   - nest는 start가 아니라 stat:prod 실행 필요 -> Procfile 설정 필요
     - https://devcenter.heroku.com/articles/procfile
+    - web process type 쓰면 start단계 변경가능
+    ```
+    // Procfile
+    web: npm run start:prod
+    ```
 
 ### 에러보기
 
 ```
 heroku logs --tail
 ```
+
+### heroku에 env 옵션 사용하기
+
+1. CLI로 세팅 하는 방법
+
+   ```
+   heroku config --help
+   ```
+
+   - NODE_ENV 설정
+
+   ```
+   heroku config:set NODE_ENV=prod
+   ```
+
+2. Web에서 세팅하는 방법
+   - https://dashboard.heroku.com/apps/프로젝트이름/settings -> Config Vars
+
+### DB 설정하기
+
+- https://dashboard.heroku.com/apps/프로젝트이름/resources -> addon -> 원하는 DB 애드온 선택
+  - dyno : heroku 안에서 돌아가는 app 의미
+- resources 가서 DB 클릭하면 실행된다
+  - Setting -> view credential 가면 필요한 정보가 많이있다
+  - ConfigVars가서 설정해주자
