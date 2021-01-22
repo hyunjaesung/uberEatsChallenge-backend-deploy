@@ -63,7 +63,7 @@ heroku logs --tail
    - NODE_ENV 설정
 
    ```
-   heroku config:set NODE_ENV=prod
+   heroku config:set NODE_ENV=production
    ```
 
 2. Web에서 세팅하는 방법
