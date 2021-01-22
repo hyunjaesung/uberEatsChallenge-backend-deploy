@@ -69,10 +69,15 @@ heroku logs --tail
 2. Web에서 세팅하는 방법
    - https://dashboard.heroku.com/apps/프로젝트이름/settings -> Config Vars
 
-### DB 설정하기
+### DB 설정 및 env 설정 완료
 
 - https://dashboard.heroku.com/apps/프로젝트이름/resources -> addon -> 원하는 DB 애드온 선택
   - dyno : heroku 안에서 돌아가는 app 의미
 - resources 가서 DB 클릭하면 실행된다
   - Setting -> view credential 가면 필요한 정보가 많이있다
   - ConfigVars가서 설정해주자
+- 서버 포트 설정 필요
+  - 히로꾸가 PORT 임의로 넣을수있음
+  ```
+  await app.listen(process.env.PORT || 4000);
+  ```
