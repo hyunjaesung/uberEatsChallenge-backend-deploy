@@ -81,3 +81,16 @@ heroku logs --tail
   ```
   await app.listen(process.env.PORT || 4000);
   ```
+
+### playground 띄우기 위한 graphQL 추가설정
+
+```
+GraphQLModule.forRoot({
+      autoSchemaFile: true,
+      introspection: true,
+      playground: true,
+      context: ({ req }) => {
+        return { user: req["user"] };
+      },
+    }),
+```
