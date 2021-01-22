@@ -94,3 +94,30 @@ GraphQLModule.forRoot({
       },
     }),
 ```
+
+### DB URI를 써야한다
+
+- 세부 credential 값이 계속 바뀔수도 있다
+
+```
+TypeOrmModule.forRoot({
+      type: "postgres",
+      ...(process.env.DATABASE_URI
+        ? {
+            url: process.env.DATABASE_URI,
+          }
+        : {
+            host:
+              process.env.NODE_ENV === "test"
+                ? "localhost"
+                : process.env.DB_HOST,
+            port: 5432,
+            username: process.env.USER,
+            password: process.env.PASSWORD,
+            database: process.env.DB_NAME,
+            synchronize: true,
+          }),
+      logging: process.env.NODE_ENV !== "test",
+      entities: [Podcast, Episode, User, Review],
+    }),
+```

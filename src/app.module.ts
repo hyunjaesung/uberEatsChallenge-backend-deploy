@@ -15,12 +15,21 @@ import { AuthModule } from "./auth/auth.module";
   imports: [
     TypeOrmModule.forRoot({
       type: "postgres",
-      host: process.env.NODE_ENV === "test" ? "localhost" : process.env.DB_HOST,
-      port: 5432,
-      username: process.env.USER,
-      password: process.env.PASSWORD,
-      database: process.env.DB_NAME,
-      synchronize: true,
+      ...(process.env.DATABASE_URI
+        ? {
+            url: process.env.DATABASE_URI,
+          }
+        : {
+            host:
+              process.env.NODE_ENV === "test"
+                ? "localhost"
+                : process.env.DB_HOST,
+            port: 5432,
+            username: process.env.USER,
+            password: process.env.PASSWORD,
+            database: process.env.DB_NAME,
+            synchronize: true,
+          }),
       logging: process.env.NODE_ENV !== "test",
       entities: [Podcast, Episode, User, Review],
     }),
